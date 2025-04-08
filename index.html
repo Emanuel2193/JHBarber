@@ -521,6 +521,15 @@
                 padding: 30px 0;
             }
         }
+
+        .fade-in {
+                animation: fadeIn 0.5s ease-in;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -566,7 +575,7 @@
         </header>
         
         <div class="booking-container">
-            <button class="back-button" id="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+            <button class="back-button" id="back-button"><i class="fas fa-arrow-left"></i></button>
             
             <div class="step" id="step1">
                 <h2 class="section-title">Reserva tu turno</h2>
@@ -582,7 +591,7 @@
                     <input type="tel" id="phone" placeholder="Tu número de WhatsApp">
                 </div>
                 
-                <button class="btn" onclick="nextStep(1, 2)">Continuar</button>
+                <button class="btn" id="step1-btn">Continuar</button>
             </div>
             
             <div class="step hidden" id="step2">
@@ -590,29 +599,29 @@
                 <p class="section-subtitle">Selecciona el servicio que deseas reservar</p>
                 
                 <div class="services">
-                    <div class="service-card" onclick="selectService(this, 'Corte Clásico', '30 min', '$1500')">
+                    <div class="service-card" data-name="Corte Clásico" data-time="30 min" data-price="$1500">
                         <div class="service-name"><i class="fas fa-scissors info-icon"></i> Corte Clásico</div>
                         <div class="service-time"><i class="far fa-clock"></i> Duración: 30 min</div>
                         <div class="service-price"><i class="fas fa-tag"></i> Precio: $1500</div>
                     </div>
-                    <div class="service-card" onclick="selectService(this, 'Corte + Barba', '45 min', '$2000')">
+                    <div class="service-card" data-name="Corte + Barba" data-time="45 min" data-price="$2000">
                         <div class="service-name"><i class="fas fa-cut info-icon"></i> Corte + Barba</div>
                         <div class="service-time"><i class="far fa-clock"></i> Duración: 45 min</div>
                         <div class="service-price"><i class="fas fa-tag"></i> Precio: $2000</div>
                     </div>
-                    <div class="service-card" onclick="selectService(this, 'Afeitado Tradicional', '25 min', '$1200')">
+                    <div class="service-card" data-name="Afeitado Tradicional" data-time="25 min" data-price="$1200">
                         <div class="service-name"><i class="fas fa-razor info-icon"></i> Afeitado Tradicional</div>
                         <div class="service-time"><i class="far fa-clock"></i> Duración: 25 min</div>
                         <div class="service-price"><i class="fas fa-tag"></i> Precio: $1200</div>
                     </div>
-                    <div class="service-card" onclick="selectService(this, 'Pack Completo', '60 min', '$2500')">
+                    <div class="service-card" data-name="Pack Completo" data-time="60 min" data-price="$2500">
                         <div class="service-name"><i class="fas fa-star info-icon"></i> Pack Completo</div>
                         <div class="service-time"><i class="far fa-clock"></i> Duración: 60 min</div>
                         <div class="service-price"><i class="fas fa-tag"></i> Precio: $2500</div>
                     </div>
                 </div>
                 
-                <button class="btn" onclick="nextStep(2, 3)">Continuar</button>
+                <button class="btn" id="step2-btn">Continuar</button>
             </div>
             
             <div class="step hidden" id="step3">
@@ -627,52 +636,77 @@
                 <div class="form-group">
                     <label><i class="far fa-clock info-icon"></i> Horario disponible</label>
                     <div class="time-slots">
-                        <div class="time-slot" onclick="selectTime(this)">10:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">11:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">12:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">13:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">14:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">15:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">16:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">17:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">18:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">19:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">20:00</div>
-                        <div class="time-slot" onclick="selectTime(this)">21:00</div>
+                        <div class="time-slot" data-time="10:00">10:00</div>
+                        <div class="time-slot" data-time="11:00">11:00</div>
+                        <div class="time-slot" data-time="12:00">12:00</div>
+                        <div class="time-slot" data-time="13:00">13:00</div>
+                        <div class="time-slot" data-time="14:00">14:00</div>
+                        <div class="time-slot" data-time="15:00">15:00</div>
+                        <div class="time-slot" data-time="16:00">16:00</div>
+                        <div class="time-slot" data-time="17:00">17:00</div>
+                        <div class="time-slot" data-time="18:00">18:00</div>
+                        <div class="time-slot" data-time="19:00">19:00</div>
+                        <div class="time-slot" data-time="20:00">20:00</div>
+                        <div class="time-slot" data-time="21:00">21:00</div>
                     </div>
                 </div>
                 
-                <button class="btn" onclick="showSummary()">Revisar reserva</button>
+                <button class="btn" id="step3-btn">Revisar reserva</button>
             </div>
-            
+    
             <div class="step hidden" id="step4">
                 <h2 class="section-title">Confirma tu reserva</h2>
                 <p class="section-subtitle">Revisa los detalles de tu turno y confirma</p>
                 
-                <div class="summary" id="summary" style="display: block;">
+                <div class="summary" id="summary">
+                    <div class="confirmation-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    
                     <h3>Resumen de tu reserva</h3>
+                    
                     <div class="summary-item">
-                        <span class="summary-label">Nombre:</span>
+                        <span class="summary-label"><i class="fas fa-user"></i> Nombre:</span>
                         <span class="summary-value" id="summary-name"></span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Servicio:</span>
+                        <span class="summary-label"><i class="fas fa-cut"></i> Servicio:</span>
                         <span class="summary-value" id="summary-service"></span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Fecha:</span>
+                        <span class="summary-label"><i class="far fa-calendar-alt"></i> Fecha:</span>
                         <span class="summary-value" id="summary-date"></span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Hora:</span>
+                        <span class="summary-label"><i class="far fa-clock"></i> Hora:</span>
                         <span class="summary-value" id="summary-time"></span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Precio:</span>
+                        <span class="summary-label"><i class="fas fa-tag"></i> Precio:</span>
                         <span class="summary-value" id="summary-price"></span>
                     </div>
                     
-                    <a href="#" class="btn" id="whatsapp-btn">Confirmar por WhatsApp <i class="fab fa-whatsapp"></i></a>
+                    <div class="confirmation-message">
+                        <p>Tu turno está casi listo. Para confirmar, haz clic en el botón de WhatsApp y envía el mensaje.</p>
+                    </div>
+                    
+                    <div class="confirmation-actions">
+                        <a href="#" class="btn confirm-btn" id="whatsapp-btn">
+                            Confirmar por WhatsApp <i class="fab fa-whatsapp"></i>
+                        </a>
+                        
+                        <button class="btn secondary-btn" id="new-booking-btn">
+                            Reservar otro turno <i class="fas fa-calendar-plus"></i>
+                        </button>
+                        
+                        <button class="btn edit-btn" id="edit-booking-btn">
+                            Editar reserva <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="confirmation-note">
+                        <p><i class="fas fa-info-circle"></i> Una vez confirmada, recibirás un mensaje de confirmación por WhatsApp.</p>
+                    </div>
                 </div>
             </div>
             
@@ -685,131 +719,175 @@
         </div>
     </div>
     
-    <footer>
-        <p>© 2025 Juan Barber - Todos los derechos reservados</p>
-        <p>Buenos Aires 88 "Centro comercial Salta Shopping", Salta | +54 9 3878550943</p>
-    </footer>
+    <!-- Botón flotante discreto de administrador -->
+    <div id="admin-button" style="position: fixed; bottom: 10px; right: 10px; width: 30px; height: 30px; background-color: #383838; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; opacity: 0.3; transition: opacity 0.3s;">
+        <i class="fas fa-cog" style="color: #d4a11a; font-size: 14px;"></i>
+    </div>
+    
+    <!-- Modal de administrador (oculto por defecto) -->
+    <div id="admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background-color: #2c2c2c; padding: 30px; border-radius: 8px; width: 90%; max-width: 400px; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6); border-left: 4px solid #d4a11a;">
+            <h3 style="color: #d4a11a; margin-bottom: 20px; font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px;">Panel de Administrador</h3>
+            
+            <div style="margin-bottom: 20px;">
+                <label for="admin-password" style="display: block; margin-bottom: 10px; font-weight: 600; font-family: 'Fira Sans', sans-serif; color: #d4a11a;">Contraseña</label>
+                <input type="password" id="admin-password" placeholder="Ingresa la contraseña de administrador" style="width: 100%; padding: 14px; border: 1px solid #555; border-radius: 4px; background-color: #383838; color: #e0e0e0; margin-bottom: 15px;">
+                
+                <button id="reset-system-btn" style="background: linear-gradient(135deg, #d4a11a 0%, #b8860b 100%); color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: 600; border-radius: 4px; cursor: pointer; width: 100%; margin-bottom: 10px;">Reiniciar Sistema de Reservas</button>
+                
+                <button id="close-admin-modal" style="background: #383838; color: #e0e0e0; border: 1px solid #555; padding: 12px 20px; font-size: 16px; font-weight: 600; border-radius: 4px; cursor: pointer; width: 100%;">Cerrar</button>
+            </div>
+            
+            <p style="color: #888; font-size: 12px; text-align: center; font-family: 'Fira Sans', sans-serif;">Este panel permite reiniciar todas las reservas que se han agregado durante las pruebas.</p>
+        </div>
+    </div>
     
     <script>
-        
-        // Simulación de base de datos de turnos reservados
-// En un sistema real, esto vendría de una base de datos
-const reservedAppointments = {
-    // Formato: 'YYYY-MM-DD': ['10:00', '14:00', '15:30']
-    '2025-04-07': ['10:00', '11:00', '14:00'],
-    '2025-04-08': ['12:00', '15:00'],
-    '2025-04-09': ['17:00', '18:00', '19:00']
-};
-
-// Configurar zona horaria de Argentina
-const getArgentinaToday = () => {
-    const now = new Date();
-    // Ajustar a zona horaria de Argentina (UTC-3)
-    const argentinaTime = new Date(now.getTime() - (now.getTimezoneOffset() * 60000) + (-3 * 3600000));
-    return argentinaTime.toISOString().split('T')[0];
-};
-
-// Horarios disponibles por defecto (horario de apertura)
-const defaultTimeSlots = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
-
-// Verificar disponibilidad y actualizar horarios disponibles
-function updateAvailableTimeSlots(date) {
-    const timeSlotContainer = document.querySelector('.time-slots');
-    timeSlotContainer.innerHTML = ''; // Limpiar horarios existentes
-    
-    // Obtener turnos reservados para la fecha seleccionada
-    const reservedSlotsForDate = reservedAppointments[date] || [];
-    
-    // Verificar si la fecha es hoy para no mostrar horarios pasados
-    const isToday = date === getArgentinaToday();
-    const currentTime = new Date();
-    const currentHour = currentTime.getHours();
-    
-    // Crear y agregar slots de tiempo disponibles
-    defaultTimeSlots.forEach(time => {
-        // Extraer la hora del formato "HH:MM"
-        const hour = parseInt(time.split(':')[0]);
-        
-        // Verificar si el horario ya está reservado o si es una hora pasada del día actual
-        const isReserved = reservedSlotsForDate.includes(time);
-        const isPast = isToday && hour <= currentHour;
-        
-        if (!isReserved && !isPast) {
-            // Crear elemento de horario disponible
-            const timeSlot = document.createElement('div');
-            timeSlot.className = 'time-slot';
-            timeSlot.textContent = time;
-            timeSlot.onclick = function() { selectTime(this); };
-            timeSlotContainer.appendChild(timeSlot);
-        }
-    });
-    
-    // Mostrar mensaje si no hay horarios disponibles
-    if (timeSlotContainer.children.length === 0) {
-        const noSlotsMsg = document.createElement('p');
-        noSlotsMsg.textContent = 'No hay horarios disponibles para esta fecha. Por favor, selecciona otra fecha.';
-        noSlotsMsg.style.color = '#d4a11a';
-        noSlotsMsg.style.textAlign = 'center';
-        noSlotsMsg.style.padding = '20px 0';
-        timeSlotContainer.appendChild(noSlotsMsg);
-    }
-}
-
-// Función para agregar un nuevo turno reservado
-function addReservedAppointment(date, time) {
-    if (!reservedAppointments[date]) {
-        reservedAppointments[date] = [];
-    }
-    reservedAppointments[date].push(time);
-}
-
-// Configurar fecha mínima (hoy en Argentina)
-document.addEventListener('DOMContentLoaded', function() {
-    const dateInput = document.getElementById('date');
-    const argentinaToday = getArgentinaToday();
-    
-    dateInput.min = argentinaToday;
-    dateInput.value = argentinaToday;
-    
-    // Actualizar horarios disponibles cuando se carga la página
-    updateAvailableTimeSlots(argentinaToday);
-    
-    // Agregar evento para actualizar horarios al cambiar fecha
-    dateInput.addEventListener('change', function() {
-        updateAvailableTimeSlots(this.value);
-        // Resetear selección de hora cuando se cambia la fecha
-        selectedTime = '';
-    });
-});
-
+    // Variables globales para almacenar los datos de la reserva
 let selectedService = '';
-let selectedPrice = '';
+let selectedServiceName = '';
+let selectedServicePrice = '';
 let selectedTime = '';
 let currentStep = 1;
+let bookedSlots = {}; // Objeto para almacenar horarios reservados por fecha
 
-// Agregar manejo del botón de retroceso del navegador
-window.onpopstate = function(event) {
-    if (currentStep > 1) {
-        goBack();
+// Inicialización cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    initializeApp();
+});
+
+function initializeApp() {
+    // Establecer la fecha mínima como hoy
+    setMinDate();
+    
+    // Configurar todos los event listeners
+    setupEventListeners();
+    
+    // Configurar los eventos para el panel de administrador
+    setupAdminPanel();
+    
+    // Mostrar el resumen inicialmente como bloque para evitar problemas de visibilidad
+    document.getElementById('summary').style.display = 'block';
+    
+    // Cargar reservas previas del localStorage
+    loadBookedSlots();
+}
+
+function setMinDate() {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
+    const yyyy = today.getFullYear();
+    
+    const todayFormatted = yyyy + '-' + mm + '-' + dd;
+    const dateInput = document.getElementById('date');
+    dateInput.min = todayFormatted;
+    dateInput.value = todayFormatted;
+    
+    // Cuando cambia la fecha, actualizar horarios disponibles
+    dateInput.addEventListener('change', updateAvailableTimeSlots);
+    
+    // Inicializar los horarios disponibles para la fecha actual
+    updateAvailableTimeSlots();
+}
+
+function setupEventListeners() {
+    // Botones de navegación entre pasos
+    document.getElementById('step1-btn').addEventListener('click', function() {
+        nextStep(1, 2);
+    });
+    
+    document.getElementById('step2-btn').addEventListener('click', function() {
+        nextStep(2, 3);
+    });
+    
+    document.getElementById('step3-btn').addEventListener('click', function() {
+        showSummary();
+    });
+    
+    // Botón de volver atrás
+    document.getElementById('back-button').addEventListener('click', goBack);
+    
+    // Botón para nueva reserva
+    document.getElementById('new-booking-btn').addEventListener('click', resetBooking);
+    
+    // Botón para editar reserva
+    document.getElementById('edit-booking-btn').addEventListener('click', goBack);
+    
+    // Configurar selección de servicios
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('click', function() {
+            selectService(this);
+        });
+    });
+    
+    // Configurar selección de horarios
+    const timeSlots = document.querySelectorAll('.time-slot');
+    timeSlots.forEach(slot => {
+        slot.addEventListener('click', function() {
+            selectTime(this);
+        });
+    });
+}
+
+// Cargar horarios reservados del localStorage
+function loadBookedSlots() {
+    const savedBookings = localStorage.getItem('bookedSlots');
+    if (savedBookings) {
+        bookedSlots = JSON.parse(savedBookings);
     }
-};
+}
 
+// Guardar horarios reservados en localStorage
+function saveBookedSlots() {
+    localStorage.setItem('bookedSlots', JSON.stringify(bookedSlots));
+}
+
+// Actualizar horarios disponibles según la fecha seleccionada
+function updateAvailableTimeSlots() {
+    const selectedDate = document.getElementById('date').value;
+    const timeSlots = document.querySelectorAll('.time-slot');
+    
+    // Restablecer todos los horarios como disponibles
+    timeSlots.forEach(slot => {
+        slot.style.display = 'block';
+        slot.classList.remove('selected');
+    });
+    
+    // Ocultar los horarios ya reservados para esta fecha
+    if (bookedSlots[selectedDate]) {
+        timeSlots.forEach(slot => {
+            if (bookedSlots[selectedDate].includes(slot.dataset.time)) {
+                slot.style.display = 'none';
+            }
+        });
+    }
+    
+    // Resetear la selección de horario
+    selectedTime = '';
+}
+
+// Función para avanzar al siguiente paso
 function nextStep(current, next) {
-    // Validaciones básicas según el paso actual
+    // Validación para el paso 1
     if (current === 1) {
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
         
-        if (!name || !phone) {
-            alert('Por favor completa tu nombre y teléfono');
+        if (name === '' || phone === '') {
+            alert('Por favor completa todos los campos');
             return;
         }
-    } else if (current === 2 && !selectedService) {
+    }
+    
+    // Validación para el paso 2
+    if (current === 2 && selectedService === '') {
         alert('Por favor selecciona un servicio');
         return;
     }
     
-    // Ocultar paso actual y mostrar el siguiente
+    // Ocultar paso actual y mostrar siguiente
     document.getElementById('step' + current).classList.add('hidden');
     document.getElementById('step' + next).classList.remove('hidden');
     
@@ -817,92 +895,226 @@ function nextStep(current, next) {
     document.getElementById('dot' + current).classList.remove('active');
     document.getElementById('dot' + next).classList.add('active');
     
-    // Mostrar botón de retroceso si no estamos en el primer paso
-    if (next > 1) {
-        document.getElementById('back-button').style.display = 'block';
-    } else {
-        document.getElementById('back-button').style.display = 'none';
-    }
-    
-    // Actualizar paso actual
+    // Actualizar step actual
     currentStep = next;
     
-    // Agregar entrada al historial para manejar el botón de retroceso
-    history.pushState({step: next}, '', '');
+    // Mostrar u ocultar botón de retroceso
+    document.getElementById('back-button').style.display = next > 1 ? 'block' : 'none';
     
-    // Scroll al inicio del contenedor
-    document.querySelector('.booking-container').scrollIntoView({behavior: 'smooth'});
-}
-
-function goBack() {
-    if (currentStep > 1) {
-        nextStep(currentStep, currentStep - 1);
-        // Evitar agregar una nueva entrada al historial
-        history.replaceState({step: currentStep}, '', '');
+    // Si vamos al paso 3, actualizar los horarios disponibles
+    if (next === 3) {
+        updateAvailableTimeSlots();
     }
 }
 
-function selectService(element, service, time, price) {
-    // Eliminar selección previa
-    const services = document.querySelectorAll('.service-card');
-    services.forEach(s => s.classList.remove('selected'));
-    
-    // Marcar el seleccionado
-    element.classList.add('selected');
-    
-    // Guardar datos del servicio
-    selectedService = service;
-    selectedPrice = price;
+// Función para retroceder un paso
+function goBack() {
+    if (currentStep > 1) {
+        // Ocultar paso actual y mostrar anterior
+        document.getElementById('step' + currentStep).classList.add('hidden');
+        document.getElementById('step' + (currentStep - 1)).classList.remove('hidden');
+        
+        // Actualizar indicador de pasos
+        document.getElementById('dot' + currentStep).classList.remove('active');
+        document.getElementById('dot' + (currentStep - 1)).classList.add('active');
+        
+        // Actualizar step actual
+        currentStep--;
+        
+        // Ocultar botón de retroceso si estamos en el primer paso
+        if (currentStep === 1) {
+            document.getElementById('back-button').style.display = 'none';
+        }
+    }
 }
 
-function selectTime(element) {
-    // Eliminar selección previa
-    const timeSlots = document.querySelectorAll('.time-slot');
-    timeSlots.forEach(t => t.classList.remove('selected'));
+// Función para seleccionar un servicio
+function selectService(element) {
+    // Quitar selección previa
+    const services = document.querySelectorAll('.service-card');
+    services.forEach(service => {
+        service.classList.remove('selected');
+    });
     
-    // Marcar el seleccionado
+    // Añadir clase seleccionada al servicio actual
+    element.classList.add('selected');
+    
+    // Guardar datos del servicio desde los atributos data
+    selectedService = element.dataset.time;
+    selectedServiceName = element.dataset.name;
+    selectedServicePrice = element.dataset.price;
+}
+
+// Función para seleccionar hora
+function selectTime(element) {
+    // Quitar selección previa
+    const timeSlots = document.querySelectorAll('.time-slot');
+    timeSlots.forEach(slot => {
+        slot.classList.remove('selected');
+    });
+    
+    // Añadir clase seleccionada al horario actual
     element.classList.add('selected');
     
     // Guardar hora seleccionada
-    selectedTime = element.innerText;
+    selectedTime = element.dataset.time;
 }
 
-function formatDate(dateString) {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Argentina/Buenos_Aires' };
-    const date = new Date(dateString + 'T12:00:00');
-    return date.toLocaleDateString('es-AR', options);
-}
-
+// Función para mostrar resumen de la reserva
 function showSummary() {
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const date = document.getElementById('date').value;
+    // Validar que se ha seleccionado una fecha y hora
+    const selectedDate = document.getElementById('date').value;
     
-    // Validaciones básicas
-    if (!date || !selectedTime) {
-        alert('Por favor selecciona fecha y hora');
+    if (selectedDate === '') {
+        alert('Por favor selecciona una fecha');
         return;
     }
     
-    // Actualizar resumen
-    document.getElementById('summary-name').innerText = name;
-    document.getElementById('summary-service').innerText = selectedService;
-    document.getElementById('summary-date').innerText = formatDate(date);
-    document.getElementById('summary-time').innerText = selectedTime;
-    document.getElementById('summary-price').innerText = selectedPrice;
+    if (selectedTime === '') {
+        alert('Por favor selecciona una hora');
+        return;
+    }
     
-    // Configurar botón de WhatsApp
-    const message = `¡Hola! Quiero confirmar mi turno:\n- Nombre: ${name}\n- Servicio: ${selectedService}\n- Fecha: ${formatDate(date)}\n- Hora: ${selectedTime}\n- Precio: ${selectedPrice}`;
-    const encodedMessage = encodeURIComponent(message);
-    document.getElementById('whatsapp-btn').href = `https://wa.me/+5493878550943?text=${encodedMessage}`;
+    // Formatear fecha para mostrar correctamente
+    const date = new Date(selectedDate + 'T00:00:00'); // Añadir hora para evitar problemas de zona horaria
+    const formattedDate = date.toLocaleDateString('es-ES', { 
+        weekday: 'long', 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+    });
     
-    // Simular reserva de turno cuando se confirma
-    const bookingTime = selectedTime;
-    addReservedAppointment(date, bookingTime);
+    // Obtener nombre y teléfono
+    const customerName = document.getElementById('name').value.trim();
+    const phoneNumber = document.getElementById('phone').value.trim();
     
-    // Avanzar al paso final
+    // Llenar el resumen con los datos
+    document.getElementById('summary-name').textContent = customerName;
+    document.getElementById('summary-service').textContent = selectedServiceName;
+    document.getElementById('summary-date').textContent = formattedDate;
+    document.getElementById('summary-time').textContent = selectedTime;
+    document.getElementById('summary-price').textContent = selectedServicePrice;
+    
+    // Configurar el enlace de WhatsApp con un mensaje mejor formateado
+    const messageText = `Hola Juan Barber! 💈\n\n*SOLICITUD DE RESERVA*\n\n▪️ *Nombre:* ${customerName}\n▪️ *Servicio:* ${selectedServiceName}\n▪️ *Fecha:* ${formattedDate}\n▪️ *Hora:* ${selectedTime}\n▪️ *Precio:* ${selectedServicePrice}\n\nPor favor confirma mi turno. ¡Gracias!`;
+    
+    const whatsappLink = `https://wa.me/+5493878550943?text=${encodeURIComponent(messageText)}`;
+    document.getElementById('whatsapp-btn').href = whatsappLink;
+    
+    // Agregar el horario a los horarios ocupados
+    if (!bookedSlots[selectedDate]) {
+        bookedSlots[selectedDate] = [];
+    }
+    bookedSlots[selectedDate].push(selectedTime);
+    
+    // Guardar en localStorage
+    saveBookedSlots();
+    
+    // Avanzar al paso 4
     nextStep(3, 4);
 }
+
+// Función para reiniciar el proceso de reserva
+function resetBooking() {
+    // Limpiar datos
+    document.getElementById('name').value = '';
+    document.getElementById('phone').value = '';
+    selectedService = '';
+    selectedServiceName = '';
+    selectedServicePrice = '';
+    selectedTime = '';
+    
+    // Quitar selecciones
+    const services = document.querySelectorAll('.service-card');
+    services.forEach(service => {
+        service.classList.remove('selected');
+    });
+    
+    const timeSlots = document.querySelectorAll('.time-slot');
+    timeSlots.forEach(slot => {
+        slot.classList.remove('selected');
+    });
+    
+    // Volver al paso 1
+    document.getElementById('step4').classList.add('hidden');
+    document.getElementById('step1').classList.remove('hidden');
+    
+    // Actualizar indicador de pasos
+    document.getElementById('dot4').classList.remove('active');
+    document.getElementById('dot1').classList.add('active');
+    
+    // Ocultar botón de retroceso
+    document.getElementById('back-button').style.display = 'none';
+    
+    // Actualizar paso actual
+    currentStep = 1;
+    
+    // Establecer la fecha mínima como hoy (nuevamente por si cambió el día)
+    setMinDate();
+}
+
+// Funciones para el panel de administrador
+function setupAdminPanel() {
+    const adminButton = document.getElementById('admin-button');
+    const adminModal = document.getElementById('admin-modal');
+    const closeAdminModal = document.getElementById('close-admin-modal');
+    const resetSystemBtn = document.getElementById('reset-system-btn');
+    
+    // Mostrar modal al hacer clic en el botón
+    adminButton.addEventListener('click', function() {
+        adminModal.style.display = 'flex';
+    });
+    
+    // Ocultar modal al hacer clic en cerrar
+    closeAdminModal.addEventListener('click', function() {
+        adminModal.style.display = 'none';
+    });
+    
+    // Acción del botón de reiniciar sistema
+    resetSystemBtn.addEventListener('click', function() {
+        const password = document.getElementById('admin-password').value;
+        
+        // Verificar contraseña
+        if (password === 'admin123') {
+            // Reiniciar la aplicación - limpiar localStorage y resetear todas las reservas
+            localStorage.removeItem('bookedSlots');
+            bookedSlots = {};
+            
+            // Resetear la interfaz
+            resetBooking();
+            
+            alert('Sistema de reservas reiniciado correctamente');
+            adminModal.style.display = 'none';
+        } else {
+            alert('Contraseña incorrecta');
+        }
+    });
+    
+    // Cerrar modal al hacer clic fuera de él
+    window.addEventListener('click', function(event) {
+        if (event.target === adminModal) {
+            adminModal.style.display = 'none';
+        }
+    });
+    
+    // Mostrar/ocultar el botón de administrador al pasar el mouse
+    adminButton.addEventListener('mouseenter', function() {
+        this.style.opacity = '1';
+    });
+    
+    adminButton.addEventListener('mouseleave', function() {
+        this.style.opacity = '0.3';
+    });
+}
+
+// Agregar clase de animación para mejorar experiencia de usuario
+function addFadeInEffect(element) {
+    element.classList.add('fade-in');
+    setTimeout(() => {
+        element.classList.remove('fade-in');
+    }, 500);
+}
+    
     </script>
 </body>
 </html>
